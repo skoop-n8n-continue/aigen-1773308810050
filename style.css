@@ -1,0 +1,762 @@
+/* ─────────────────────────────────────────────────────────────
+   Quality Roots — THE CUT — Deals Showcase Template
+   Canvas: 1920 × 1080
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #060d07;
+  font-family: 'Barlow', sans-serif;
+}
+
+/* ── Root Scene ─────────────────────────────────────────────── */
+#scene {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: #060d07;
+}
+
+/* ── Background Image ──────────────────────────────────────── */
+#background {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://skoop-dev-code-agent.s3.us-east-1.amazonaws.com/n8n-continue%2Faigen-1773308810050%2Fassets%2Fbackground_dark_botanical-1773309025205.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+/* ── Vignette overlay ───────────────────────────────────────── */
+#bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    transparent 30%,
+    rgba(4, 10, 5, 0.55) 65%,
+    rgba(3, 8, 4, 0.85) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Colour wash (deep green tint) ──────────────────────────── */
+#bg-color-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 30, 14, 0.65) 0%,
+    rgba(6, 18, 8, 0.50) 40%,
+    rgba(3, 10, 4, 0.70) 100%
+  );
+  z-index: 2;
+}
+
+/* ── Background Effects Layer ────────────────────────────────── */
+#background-effects {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Root SVG paths */
+#root-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.root-path {
+  fill: none;
+  stroke: rgba(75, 172, 80, 0.22);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.root-branch {
+  stroke: rgba(75, 172, 80, 0.14);
+  stroke-width: 1;
+}
+
+/* Particle canvas */
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1080px;
+}
+
+/* ── Watermark ───────────────────────────────────────────────── */
+#bg-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#wm-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 320px;
+  font-weight: 900;
+  color: rgba(76, 175, 80, 0.04);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+#header-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+}
+
+#header {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 15, 6, 0.95) 0%,
+    rgba(5, 15, 6, 0.88) 100%
+  );
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(75, 172, 80, 0.15);
+}
+
+/* Logo */
+#logo-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+#logo-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(45, 106, 79, 0.6));
+}
+
+#logo-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #f0ede4;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+#brand-sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: rgba(125, 204, 104, 0.8);
+  text-transform: uppercase;
+}
+
+/* Centre deals badge */
+#deals-badge-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#deals-badge {
+  background: transparent;
+  border: 1px solid rgba(245, 200, 66, 0.4);
+  border-radius: 4px;
+  padding: 8px 28px;
+  position: relative;
+}
+
+#deals-badge::before,
+#deals-badge::after {
+  content: '✦';
+  position: absolute;
+  color: #f5c842;
+  font-size: 10px;
+  opacity: 0.7;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#deals-badge::before { left: 10px; }
+#deals-badge::after  { right: 10px; }
+
+#deals-label-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: #f5c842;
+  text-transform: uppercase;
+}
+
+/* Header right — promo tag */
+#header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#header-promo-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.promo-line {
+  font-family: 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: rgba(240, 237, 228, 0.5);
+  text-transform: uppercase;
+}
+
+.promo-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #f5c842;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(245, 200, 66, 0.5);
+}
+
+/* Divider */
+#header-divider {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+}
+
+#divider-svg {
+  display: block;
+}
+
+/* ── Sub-header strip ────────────────────────────────────────── */
+#sub-header {
+  position: absolute;
+  top: 94px;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  z-index: 29;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 15, 6, 0.7) 0%,
+    rgba(5, 20, 8, 0.5) 50%,
+    rgba(5, 15, 6, 0.7) 100%
+  );
+  border-bottom: 1px solid rgba(75, 172, 80, 0.08);
+}
+
+#sub-title-left,
+#sub-title-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sub-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: rgba(125, 204, 104, 0.55);
+  text-transform: uppercase;
+}
+
+.sub-divider {
+  color: rgba(75, 172, 80, 0.3);
+  font-size: 10px;
+}
+
+#sub-title-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#half-price-banner {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  color: #f5c842;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px rgba(245, 200, 66, 0.4);
+}
+
+/* ── Products Container ──────────────────────────────────────── */
+#products-container {
+  position: absolute;
+  top: 158px;
+  left: 0;
+  right: 0;
+  bottom: 76px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 42px;
+  padding: 0 60px;
+}
+
+/* ── Product Card ────────────────────────────────────────────── */
+.product-card {
+  flex: 0 0 auto;
+  width: 570px;
+  height: 760px;
+  position: relative;
+  will-change: transform, opacity;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    155deg,
+    rgba(14, 28, 16, 0.97) 0%,
+    rgba(18, 38, 20, 0.97) 50%,
+    rgba(10, 22, 12, 0.97) 100%
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(75, 172, 80, 0.22);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(75, 172, 80, 0.06),
+    inset 0 1px 0 rgba(125, 204, 104, 0.08);
+}
+
+/* Top edge accent bar */
+.card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #2d6a4f, #7dcc68, #f5c842, #7dcc68, #2d6a4f);
+  z-index: 2;
+}
+
+/* Card glow (shown during deal reveal) */
+.card-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 0 0px rgba(245, 200, 66, 0);
+  pointer-events: none;
+  z-index: -1;
+  transition: none;
+}
+
+/* ── Card top badges ─────────────────────────────────────────── */
+.card-top {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.brand-pill {
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(240, 237, 228, 0.85);
+  background: rgba(75, 172, 80, 0.18);
+  border: 1px solid rgba(75, 172, 80, 0.3);
+  border-radius: 30px;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+.strain-pill {
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border-radius: 30px;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+.strain-indica {
+  color: rgba(196, 160, 255, 0.9);
+  background: rgba(110, 60, 180, 0.22);
+  border: 1px solid rgba(140, 80, 220, 0.35);
+}
+
+.strain-hybrid,
+.strain-default {
+  color: rgba(100, 220, 180, 0.9);
+  background: rgba(30, 120, 90, 0.22);
+  border: 1px solid rgba(50, 170, 130, 0.35);
+}
+
+.strain-sativa {
+  color: rgba(255, 200, 100, 0.9);
+  background: rgba(160, 100, 20, 0.22);
+  border: 1px solid rgba(200, 140, 40, 0.35);
+}
+
+/* ── Product image area ─────────────────────────────────────── */
+.image-container {
+  flex-shrink: 0;
+  height: 290px;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 55%,
+    rgba(20, 50, 22, 0.9) 0%,
+    rgba(8, 18, 9, 1) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 70px;
+  background: linear-gradient(transparent, rgba(14, 28, 16, 0.97));
+  z-index: 2;
+}
+
+.image-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75, 172, 80, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 24px 30px;
+  position: relative;
+  z-index: 2;
+  will-change: filter, transform;
+}
+
+/* ── Card body (info) ─────────────────────────────────────────── */
+.card-body {
+  flex: 1;
+  padding: 16px 22px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.category-label {
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(125, 204, 104, 0.7);
+  text-transform: uppercase;
+}
+
+.p-name {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #f0ede4;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.thc-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.thc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7dcc68;
+  box-shadow: 0 0 6px rgba(125, 204, 104, 0.6);
+  flex-shrink: 0;
+}
+
+.thc-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(125, 204, 104, 0.85);
+  text-transform: uppercase;
+}
+
+/* ── Price section ────────────────────────────────────────────── */
+.price-area {
+  padding: 12px 22px 14px;
+  border-top: 1px solid rgba(75, 172, 80, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.orig-price-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.orig-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: rgba(180, 175, 165, 0.7);
+  letter-spacing: 0;
+  line-height: 1;
+  display: block;
+}
+
+/* The animated strike-through line */
+.price-strike {
+  position: absolute;
+  top: 52%;
+  left: -3px;
+  right: -3px;
+  height: 3px;
+  background: linear-gradient(90deg, #e74c3c, #ff6b6b);
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+}
+
+.sale-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 62px;
+  font-weight: 900;
+  color: #f5c842;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow:
+    0 0 30px rgba(245, 200, 66, 0.5),
+    0 0 60px rgba(245, 200, 66, 0.2);
+  will-change: transform, opacity;
+}
+
+/* ── Deal tag / badge ─────────────────────────────────────────── */
+.deal-tag {
+  margin: 0 22px 18px;
+  background: linear-gradient(135deg, #1a4a2e, #2d6a4f);
+  border: 1px solid rgba(245, 200, 66, 0.35);
+  border-radius: 10px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.deal-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(245, 200, 66, 0.06) 0%,
+    transparent 60%
+  );
+}
+
+.deal-pct {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: #f5c842;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(245, 200, 66, 0.5);
+}
+
+.deal-off {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: rgba(240, 237, 228, 0.9);
+  line-height: 1;
+}
+
+.deal-tag-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+/* ── Foreground layer ─────────────────────────────────────────── */
+#foreground-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+}
+
+#foreground-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+/* ── Bottom bar ───────────────────────────────────────────────── */
+#ui-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 35;
+}
+
+#bottom-bar {
+  height: 56px;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 8, 4, 0.85) 0%,
+    rgba(3, 8, 4, 0.97) 100%
+  );
+  border-top: 1px solid rgba(75, 172, 80, 0.18);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+}
+
+#bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#bottom-brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: rgba(240, 237, 228, 0.9);
+  text-transform: uppercase;
+}
+
+#bottom-tagline {
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(125, 204, 104, 0.6);
+  text-transform: uppercase;
+}
+
+#bottom-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#ticker-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: rgba(245, 200, 66, 0.65);
+  text-transform: uppercase;
+}
+
+#bottom-url {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(125, 204, 104, 0.7);
+}
+
+/* ── Spark burst elements (added by JS) ─────────────────────── */
+.spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── Utilities ────────────────────────────────────────────────── */
+.invisible { opacity: 0; }

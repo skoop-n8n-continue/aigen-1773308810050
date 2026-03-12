@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Quality Roots — Deals Showcase</title>
+
+  <!-- GSAP Core + Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=k9m2x7">
+</head>
+<body>
+  <div id="scene">
+
+    <!-- ── Background ─────────────────────────────────── -->
+    <div id="background"></div>
+    <div id="bg-vignette"></div>
+    <div id="bg-color-wash"></div>
+
+    <!-- ── Background FX: SVG root lines + particles ──── -->
+    <div id="background-effects">
+
+      <!-- Organic root-tendrils drawn via DrawSVG -->
+      <svg id="root-svg" xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <!-- Main trunks radiating from bottom-centre -->
+        <path class="root-path" id="rp1"
+              d="M960 1090 C 880 950 790 880 700 790 C 610 700 550 640 460 560 C 370 480 300 420 200 360"/>
+        <path class="root-path" id="rp2"
+              d="M960 1090 C 920 950 870 890 820 820 C 770 750 730 700 690 640 C 650 580 610 520 560 455"/>
+        <path class="root-path" id="rp3"
+              d="M960 1090 C 950 960 930 910 905 855 C 880 800 850 755 810 700 C 770 645 745 600 720 535"/>
+        <path class="root-path" id="rp4"
+              d="M960 1090 C 960 940 955 875 948 800 C 941 725 930 665 915 600 C 900 535 895 480 895 415"/>
+        <path class="root-path" id="rp5"
+              d="M960 1090 C 960 940 965 875 972 800 C 979 725 990 665 1005 600 C 1020 535 1025 480 1025 415"/>
+        <path class="root-path" id="rp6"
+              d="M960 1090 C 990 960 1040 900 1100 820 C 1160 740 1195 680 1240 600 C 1285 520 1320 455 1380 375"/>
+        <path class="root-path" id="rp7"
+              d="M960 1090 C 1010 940 1070 895 1140 815 C 1210 735 1255 695 1300 635 C 1345 575 1385 520 1440 455"/>
+        <path class="root-path" id="rp8"
+              d="M960 1090 C 1040 950 1125 880 1210 790 C 1295 700 1360 640 1440 555 C 1520 470 1590 415 1680 360"/>
+        <!-- Branches -->
+        <path class="root-path root-branch" id="rb1"
+              d="M700 790 C 660 755 630 720 595 675 C 560 630 530 590 490 545"/>
+        <path class="root-path root-branch" id="rb2"
+              d="M1240 600 C 1280 558 1315 518 1355 474 C 1395 430 1435 388 1480 345"/>
+        <path class="root-path root-branch" id="rb3"
+              d="M915 600 C 882 568 848 538 812 506 C 776 474 742 452 706 432"/>
+        <path class="root-path root-branch" id="rb4"
+              d="M1005 600 C 1038 568 1072 538 1108 506 C 1144 474 1178 452 1214 432"/>
+      </svg>
+
+      <!-- Floating particle canvas -->
+      <canvas id="particles-canvas"></canvas>
+    </div>
+
+    <!-- ── Watermark / Big Text BG layer ──────────────── -->
+    <div id="bg-watermark">
+      <span id="wm-text">QUALITY ROOTS</span>
+    </div>
+
+    <!-- ── Header ─────────────────────────────────────── -->
+    <div id="header-wrap">
+      <div id="header">
+        <!-- Logo -->
+        <div id="logo-area">
+          <div id="logo-icon">
+            <svg width="58" height="58" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="29" cy="29" r="29" fill="#2d6a4f"/>
+              <circle cx="29" cy="29" r="26" fill="none" stroke="#f5c842" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <!-- Leaf icon -->
+              <path d="M29 42 C 18 35 16 22 29 16 C 42 22 40 35 29 42 Z" fill="#7dcc68" opacity="0.9"/>
+              <path d="M29 42 L 29 26" stroke="#2d6a4f" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M29 33 C 24 31 22 27 24 24" stroke="#2d6a4f" stroke-width="1" stroke-linecap="round" fill="none"/>
+              <path d="M29 37 C 34 35 36 31 34 28" stroke="#2d6a4f" stroke-width="1" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div id="logo-text-block">
+            <div id="brand-name">QUALITY ROOTS</div>
+            <div id="brand-sub">Michigan's Premier Cannabis</div>
+          </div>
+        </div>
+
+        <!-- Centre badge -->
+        <div id="deals-badge-wrap">
+          <div id="deals-badge">
+            <span id="deals-label-text">TODAY'S DEALS</span>
+          </div>
+        </div>
+
+        <!-- Right info -->
+        <div id="header-right">
+          <div id="header-promo-tag">
+            <span class="promo-line">ALL ITEMS</span>
+            <span class="promo-price">50% OFF</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider lines emanating from centre -->
+      <div id="header-divider">
+        <svg id="divider-svg" width="1920" height="6" viewBox="0 0 1920 6">
+          <line id="div-left"  x1="960" y1="3" x2="0"    y2="3" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+          <line id="div-right" x1="960" y1="3" x2="1920" y2="3" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+          <line id="div-gold-left"  x1="960" y1="3" x2="0"    y2="3" stroke="#f5c842" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+          <line id="div-gold-right" x1="960" y1="3" x2="1920" y2="3" stroke="#f5c842" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ── Sub-header title strip ─────────────────────── -->
+    <div id="sub-header">
+      <div id="sub-title-left">
+        <span class="sub-label">FIRE</span>
+        <span class="sub-divider">·</span>
+        <span class="sub-label">DEALS</span>
+        <span class="sub-divider">·</span>
+        <span class="sub-label">NOW</span>
+      </div>
+      <div id="sub-title-center">
+        <span id="half-price-banner">✦ HALF PRICE ✦</span>
+      </div>
+      <div id="sub-title-right">
+        <span class="sub-label">LIMITED</span>
+        <span class="sub-divider">·</span>
+        <span class="sub-label">TIME</span>
+        <span class="sub-divider">·</span>
+        <span class="sub-label">OFFER</span>
+      </div>
+    </div>
+
+    <!-- ── Products Container ─────────────────────────── -->
+    <div id="products-container"></div>
+
+    <!-- ── Foreground botanical overlay ──────────────── -->
+    <div id="foreground-layer">
+      <img id="foreground-img"
+           src="https://skoop-dev-code-agent.s3.us-east-1.amazonaws.com/n8n-continue%2Faigen-1773308810050%2Fassets%2Fforeground_botanical-1773309047198.png"
+           alt="">
+    </div>
+
+    <!-- ── Bottom bar ─────────────────────────────────── -->
+    <div id="ui-layer">
+      <div id="bottom-bar">
+        <div id="bottom-left">
+          <span id="bottom-brand-name">QUALITY ROOTS</span>
+          <span id="bottom-tagline">Where There's Smoke, There's Quality.</span>
+        </div>
+        <div id="bottom-center">
+          <span id="ticker-text"></span>
+        </div>
+        <div id="bottom-right">
+          <span id="bottom-url">getqualityroots.com</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#scene -->
+
+  <script src="animation.js?v=k9m2x7"></script>
+</body>
+</html>

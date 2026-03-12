@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": "3452466",
+      "name": "Savvy Blue Magic Guap Gummy 25mg 1-Pack",
+      "price": "$7.00",
+      "discounted_price": "$3.50",
+      "image_url": "https://skoop-general.s3.us-east-1.amazonaws.com/n8n_image_gen%2Fundefined-1773196700024.png",
+      "meta": "Indica | 25mg THC | Gummies",
+      "brand": "Savvy",
+      "strain": "Indica",
+      "category": "Gummies",
+      "thc": "25mg THC"
+    },
+    {
+      "id": "3465870",
+      "name": "Lost Farm Juicy Peach x GSC Sherbet Live Resin Gummies 10mg x 10-Pack",
+      "price": "$30.00",
+      "discounted_price": "$15.00",
+      "image_url": "https://skoop-general.s3.us-east-1.amazonaws.com/n8n_image_gen%2Fundefined-1773196879298.png",
+      "meta": "Hybrid | 10mg x 10 | Gummies",
+      "brand": "Lost Farm",
+      "strain": "Hybrid",
+      "category": "Live Resin Gummies",
+      "thc": "10mg × 10"
+    },
+    {
+      "id": "3475123",
+      "name": "Orange Malt Flower 7g",
+      "price": "$65.00",
+      "discounted_price": "$32.50",
+      "image_url": "https://leaflogixmedia.blob.core.windows.net/product-image/ce1aabe2-d086-4462-91ad-8f70ef4c5913.jpg",
+      "meta": "Hybrid | 26.19% THC | Whole Flower",
+      "brand": "URBNJ",
+      "strain": "Hybrid",
+      "category": "Whole Flower",
+      "thc": "26.19% THC"
+    }
+  ]
+}

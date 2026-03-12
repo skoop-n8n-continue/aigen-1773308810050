@@ -335,15 +335,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 42px;
-  padding: 0 60px;
+  gap: 30px;
+  padding: 0 40px;
 }
 
 /* ── Product Card ────────────────────────────────────────────── */
 .product-card {
   flex: 0 0 auto;
-  width: 570px;
-  height: 760px;
+  width: 500px;
+  height: 680px;
   position: relative;
   will-change: transform, opacity;
 }

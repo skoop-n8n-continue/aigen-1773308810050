@@ -220,7 +220,7 @@ function animateCycle(batchIndex) {
   // Reset card containers — NOT hiding them so children are visible when animated
   gsap.set(cards, {
     y: 120, opacity: 0, scale: 0.94, x: 0, rotation: 0,
-    rotateX: 8, transformPerspective: 1200, clearProps: false
+    rotateX: 8, transformPerspective: 1200
   });
   // Reset individual child elements (containers stay opacity:1)
   gsap.set('.card-top, .card-body, .price-area', { opacity: 1 });
@@ -281,7 +281,7 @@ function animateCycle(batchIndex) {
   cards.forEach((card, i) => {
     const nameEl = card.querySelector('.p-name');
     if (!nameEl) return;
-    const split = SplitText.create(nameEl, { type: 'chars,words' });
+    const split = new SplitText(nameEl, { type: 'chars,words' });
     gsap.set(nameEl, { opacity: 1 });
     tl.from(split.chars, {
       opacity: 0,

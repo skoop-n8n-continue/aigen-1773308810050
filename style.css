@@ -337,6 +337,8 @@ body {
   justify-content: center;
   gap: 30px;
   padding: 0 40px;
+  /* Perspective for 3D card entrance — set on parent so GSAP rotationX works cleanly */
+  perspective: 1200px;
 }
 
 /* ── Product Card ────────────────────────────────────────────── */

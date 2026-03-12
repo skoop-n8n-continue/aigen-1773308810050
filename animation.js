@@ -7,7 +7,7 @@
 'use strict';
 
 // ── Plugin Registration ──────────────────────────────────────
-gsap.registerPlugin(SplitText, CustomEase, DrawSVGPlugin, ScrambleTextPlugin);
+gsap.registerPlugin(SplitText, CustomEase, DrawSVGPlugin);
 
 // Custom eases
 CustomEase.create('dealBounce',  'M0,0 C0.2,0 0.35,1.2 0.5,1 0.65,0.8 0.8,1.05 1,1');
@@ -212,15 +212,15 @@ function animateCycle(batchIndex) {
 
   renderBatch(batch);
 
-  const cards     = document.querySelectorAll('.product-card');
-  const cardInners = document.querySelectorAll('.card-inner');
+  const cards      = Array.from(document.querySelectorAll('.product-card'));
+  const cardInners = Array.from(document.querySelectorAll('.card-inner'));
 
   // ── Hard reset all card elements + persistent elements ────
   gsap.set('#ticker-text', { opacity: 1 });
-  // Reset card containers — NOT hiding them so children are visible when animated
+  // Reset card containers (no transformPerspective — handled via CSS on container)
   gsap.set(cards, {
     y: 120, opacity: 0, scale: 0.94, x: 0, rotation: 0,
-    rotateX: 8, transformPerspective: 1200
+    rotationX: 8
   });
   // Reset individual child elements (containers stay opacity:1)
   gsap.set('.card-top, .card-body, .price-area', { opacity: 1 });
@@ -248,11 +248,11 @@ function animateCycle(batchIndex) {
 
   // Cards rise from below with stagger
   tl.to(cards, {
-    y: 0, opacity: 1, scale: 1, rotateX: 0,
+    y: 0, opacity: 1, scale: 1, rotationX: 0,
     duration: 0.85,
     stagger: 0.18,
     ease: 'back.out(1.5)',
-    clearProps: 'rotateX,transformPerspective'
+    clearProps: 'rotationX'
   }, 0);
 
   // Image: grayscale dissolves to full colour
@@ -286,7 +286,7 @@ function animateCycle(batchIndex) {
     tl.from(split.chars, {
       opacity: 0,
       y: 18,
-      rotateX: -90,
+      rotationX: -90,
       transformOrigin: '0% 50% -20',
       duration: 0.38,
       stagger: { each: 0.018, from: 'start' },
@@ -420,15 +420,16 @@ function animateCycle(batchIndex) {
     repeat: 5
   }, idleStart);
 
-  // Ticker text scramble (cycling product names)
+  // Ticker text update — fade out, swap text, fade back in
   const tickerMsg = batch.map(p =>
-    `${p.name.slice(0, 28).trim()}... NOW ${p.discounted_price}`
-  ).join('  ·  ');
-  tl.to('#ticker-text', {
-    duration: 2,
-    scrambleText: { text: tickerMsg, chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', speed: 0.5 },
-    ease: 'none'
-  }, idleStart);
+    `${p.name.slice(0, 28).trim()}  ·  NOW ${p.discounted_price}`
+  ).join('     ');
+  tl.to('#ticker-text', { opacity: 0, duration: 0.3, ease: 'power2.out' }, idleStart);
+  tl.call(() => {
+    const el = document.getElementById('ticker-text');
+    if (el) el.textContent = tickerMsg;
+  }, null, idleStart + 0.35);
+  tl.to('#ticker-text', { opacity: 1, duration: 0.5, ease: 'power2.in' }, idleStart + 0.4);
 
   // ─────────────────────────────────────────────────────────
   // PHASE 4: Exit — staggered cascade out (13.5 → 16s)

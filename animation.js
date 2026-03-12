@@ -125,6 +125,13 @@ function buildCardHTML(product, index) {
   const origPrice   = product.price    || '';
   const salePrice   = product.discounted_price || '';
 
+  // Dynamically compute discount percentage from actual prices
+  const origVal  = parseFloat(String(origPrice).replace(/[^0-9.]/g, '')) || 0;
+  const saleVal  = parseFloat(String(salePrice).replace(/[^0-9.]/g, '')) || 0;
+  const dealPct  = (origVal > 0 && saleVal < origVal)
+    ? Math.round((1 - saleVal / origVal) * 100)
+    : 50;
+
   return `
     <div class="product-card" data-index="${index}" data-strain="${strainRaw}">
       <div class="card-glow"></div>
@@ -165,7 +172,7 @@ function buildCardHTML(product, index) {
         <!-- Deal badge -->
         <div class="deal-tag">
           <div class="deal-tag-shine"></div>
-          <span class="deal-pct">50%</span>
+          <span class="deal-pct">${dealPct}%</span>
           <span class="deal-off">OFF</span>
         </div>
 
@@ -363,12 +370,17 @@ function animateCycle(batchIndex) {
   // ─────────────────────────────────────────────────────────
 
   const idleStart = 4.5;
+  const exitStart = idleStart + IDLE_DURATION; // declare early so float calcs can use it
 
   // Gentle card float (different phase per card)
+  // Cap float so it always finishes before exitStart to avoid y-conflict with exit tweens
   cards.forEach((card, i) => {
-    const floatY    = 10 + i * 2;
-    const floatDur  = 2.8 + i * 0.35;
-    const floatReps = Math.floor(IDLE_DURATION / (floatDur * 2)) + 1;
+    const floatY      = 10 + i * 2;
+    const floatDur    = 2.6 + i * 0.3;
+    const floatOffset = idleStart + i * 0.5;
+    const availableTime = exitStart - floatOffset - 0.4; // leave 0.4s gap before exit
+    // Each repeat cycle = floatDur * 2 (yoyo). Fit as many as possible.
+    const floatReps = Math.max(0, Math.floor(availableTime / (floatDur * 2)) * 2 - 1);
 
     tl.to(card, {
       y: `-=${floatY}`,
@@ -376,7 +388,7 @@ function animateCycle(batchIndex) {
       ease: 'sine.inOut',
       yoyo: true,
       repeat: floatReps
-    }, idleStart + i * 0.6);
+    }, floatOffset);
   });
 
   // Deal badge gentle pulse-scale
@@ -422,9 +434,8 @@ function animateCycle(batchIndex) {
   // PHASE 4: Exit — staggered cascade out (13.5 → 16s)
   // ─────────────────────────────────────────────────────────
 
-  const exitStart = idleStart + IDLE_DURATION;
-
   // Each card exits in alternating directions
+  // overwrite: 'auto' ensures any still-running float tweens on the same props are killed
   const exitDirs = [
     { x: -180, rotation: -6 },  // card 0 → left
     { y:  180, rotation:  0 },  // card 1 → down
@@ -438,7 +449,8 @@ function animateCycle(batchIndex) {
       opacity: 0,
       scale: 0.88,
       duration: 0.75,
-      ease: 'swipeOut'
+      ease: 'swipeOut',
+      overwrite: 'auto'
     }, exitStart + i * 0.12);
   });
 
